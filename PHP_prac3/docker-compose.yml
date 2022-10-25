@@ -1,0 +1,30 @@
+version: '3'
+services:
+  apache:
+    build: ./apache
+    volumes:
+      - ./apache/src:/var/www/html/
+      - ./apache/000-default.conf:/etc/apache2/sites-available/000-default.conf
+    environment:
+      - DB_HOST=my-sql
+      - DB_PORT=3306
+      - DB_NAME=appDB
+      - DB_USER=user
+      - DB_PASSWORD=password
+  my-sql:
+    image: mysql:latest
+    volumes:
+      - ./db:/docker-entrypoint-initdb.d
+      - db_volume:/var/lib/mysql
+    environment:
+      - MYSQL_ROOT_PASSWORD=root
+  nginx:
+    build: ./nginx
+    volumes:
+      - ./nginx/src:/etc/nginx/html/
+      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
+    ports:
+      - 80:80
+
+volumes:
+  db_volume:
