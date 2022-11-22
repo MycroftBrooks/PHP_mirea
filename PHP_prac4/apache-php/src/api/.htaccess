@@ -1,0 +1,6 @@
+<Files users.php>
+    Require all granted
+</Files>
+<Files main_menu.php>
+    Require all granted
+</Files>
