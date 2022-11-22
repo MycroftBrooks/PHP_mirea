@@ -1,0 +1,9 @@
+version: '3.9'
+
+services:
+  apache:
+    build: ./core
+    volumes:
+      - ./core:/var/www/html/
+    ports:
+      - "8080:80"
