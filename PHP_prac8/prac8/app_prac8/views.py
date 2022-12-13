@@ -1,7 +1,8 @@
 from django.shortcuts import render
-from django.http import HttpResponse
-from .models import product, vacancy
-
+from django.http import HttpResponse, HttpResponseRedirect
+from .models import product, vacancy, pdfloader
+from .forms import pdfloaderForm
+from .graphs import get_graph
 
 def index(request):
     return render(request, 'app_prac8/index.html')
@@ -37,3 +38,25 @@ def vacancy_all(request):
     vacancy_str = " ".join(vacancy.__str__() for vacancy in vacancy_site)
     return HttpResponse(vacancy_str)
 
+def pdfloader_site(request):
+    submitted = False
+    if request.method == "POST":
+        form = pdfloaderForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect("/pdfloader?submitted=True")
+    else:
+        form = pdfloaderForm
+        if "submitted" in request.GET:
+            submitted = True
+    return render(request, "app_prac8/pdfloader.html", {"form": form, "submitted": submitted})
+
+
+def pdfloaded(request):
+    context={"pdfs": pdfloader.objects.all()}
+    return render(request, 'app_prac8/pdfloaded.html', context)
+
+def graphs(request):
+    graphs_dict = get_graph(50)
+    context = {"graphs": graphs_dict}
+    return render(request, "app_prac8/graph.html", context)

@@ -23,10 +23,12 @@
       </a>
 
       <ul class="nav nav-pills">
-        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link active" aria-current="page">Главная</a></li>
+        <li class="nav-item"><a href="{% url 'index' %}" class="nav-link" aria-current="page">Главная</a></li>
         <li class="nav-item"><a href="{% url 'menu' %}" class="nav-link">Меню</a></li>
         <li class="nav-item"><a href="{% url 'vacancy' %}" class="nav-link">Вакансии</a></li>
         <li class="nav-item"><a href="{% url 'about' %}" class="nav-link">О нас</a></li>
+        <li class="nav-item"><a href="{% url 'pdfloader' %}" class="nav-link">PDF loader</a></li>
+        <li class="nav-item"><a href="{% url 'graphs' %}" class="nav-link">Графики</a></li>
         <li class="nav-item"><a href="{% url 'admin:index' %}" class="nav-link">Админка</a></li>
       </ul>
     </header>
